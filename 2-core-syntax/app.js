@@ -1,17 +1,15 @@
-var combine = function (input1, input2, resultConversion) {
-    var result;
-    if ((typeof input1 === "number" && typeof input2 === "number") ||
-        resultConversion === "as-number") {
-        result = +input1 + +input2;
-    }
-    else {
-        result = input1.toString() + input2.toString();
-    }
-    return result;
+var add = function (n1, n2) {
+    return n1 + n2;
 };
-var combinedAges = combine(30, 20, "as-number");
-console.log(combinedAges);
-var combinedRole = combine(1, 2, "as-text");
-console.log(combinedRole);
-var combinedNames = combine("Mike", "Kang", "as-text");
-console.log(combinedNames);
+var printResult = function (num) {
+    console.log("Result : " + num);
+};
+printResult(add(5, 2));
+// const add = (n1: number, n2: number) => {
+//   return n1.toString() + n2.toString();
+// }
+var someFunc;
+someFunc = add;
+// someFunc = printResult;  // error
+// someFunc = 5;  // error
+console.log(someFunc(5, 5));
