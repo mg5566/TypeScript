@@ -1,8 +1,13 @@
 var person = {
     name: "Kang",
     age: 30,
-    hobbies: ["Sports", "Cooking"]
+    hobbies: ["Sports", "Cooking"],
+    role: [2, "author"]
 };
+person.role.push("admin");
+// person.role[1] = 10; // error
+person.role = [5, "admin"];
+// person.role = [4, "admin", "user"];  // error
 // let favoriteActivities: any[];
 // favoriteActivities = ["Sport", 1]
 var favoriteActivities;
