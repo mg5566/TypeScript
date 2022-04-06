@@ -1,109 +1,54 @@
-abstract class Department {
-  protected employees: string[] = [];
+// type AddFn = (a: number, b: number) => number;
+interface AddFn {
+  (a: number, b: number): number;
+}
 
-  static fiscalYear = 2022;
+let add: AddFn;
 
-  // 약식 초기화
-  constructor(private readonly id: string, protected readonly name: string) {}
+add = (a: number, b: number) => {
+  return a + b;
+};
 
-  abstract describe(this: Department): void;
+interface Named {
+  readonly name?: string;
+}
 
-  static createEmployee(name: string) {
-    return { name: name };
+interface Greetable extends Named {
+  greet(phrase: string): void;
+}
+
+class Person implements Greetable {
+  name?: string;
+  age?: number;
+
+  constructor(n?: string, a?: number) {
+    if (n) {
+      this.name = n;
+    }
+    if (a) {
+      this.age = a;
+    }
   }
 
-  addEmployee(employee: string) {
-    this.employees.push(employee);
-  }
-
-  printEmployeeInfomation() {
-    console.log(this.employees.length);
-    console.log(this.employees);
+  greet(phrase: string): void {
+    if (this.name) {
+      console.log(this.name + ": " + phrase);
+    } else {
+      console.log("Hello I have not name yet");
+    }
   }
 }
 
-class AccountingDepartment extends Department {
-  private static instance: AccountingDepartment;
+let user1: Greetable;
 
-  private lastReport: string = "";
+// user1 = {
+//   name: "Kang",
+//   age: 30,
+//   greet(phrase: string) {
+//     console.log(this.name + ": " + phrase);
+//   },
+// };
+// user1 = new Person("Mike", 30);
+user1 = new Person();
 
-  // constructor(private lastReports: string[]) {
-  private constructor() {
-    super("a1", "Accounting");
-  }
-
-  get mostRecentReport() {
-    if (this.lastReport) {
-      return this.lastReport;
-    }
-    throw new Error("No Report found.");
-  }
-
-  set mostRecentReport(value: string) {
-    if (!value) {
-      throw new Error("please pass in valid value");
-    }
-    this.lastReport = value;
-  }
-
-  describe() {
-    console.log("Department: ", this.name);
-  }
-
-  static getInstance() {
-    if (AccountingDepartment.instance) {
-      return this.instance;
-    }
-    this.instance = new AccountingDepartment();
-    return this.instance;
-  }
-}
-
-// const accounting = new AccountingDepartment();
-const accounting = AccountingDepartment.getInstance();
-const accounting2 = AccountingDepartment.getInstance();
-
-accounting.describe();
-accounting.addEmployee("Kang");
-accounting.addEmployee("Kim");
-accounting.addEmployee("Cho");
-accounting.addEmployee("Lee");
-accounting.printEmployeeInfomation();
-
-accounting.mostRecentReport = "1";
-console.log("accounting", accounting.mostRecentReport);
-
-accounting2.describe();
-console.log(accounting, accounting2);
-
-// inheritance
-class ITDepartment extends Department {
-  constructor(id: string, name: string, private admins: string[]) {
-    super(id, name);
-  }
-
-  addAdmin(admin: string) {
-    this.admins.push(admin);
-  }
-
-  addEmployee(employee: string) {
-    if (this.admins.includes(employee)) {
-      return;
-    }
-    this.employees.push(employee);
-  }
-
-  describe() {
-    console.log("Department: ", this.name);
-  }
-}
-
-const it = new ITDepartment("i1", "IT development", ["Kang", "Mike"]);
-
-it.describe();
-
-it.addEmployee("Mike");
-it.addEmployee("Cho");
-it.addEmployee("Lee");
-
-console.log(it);
+user1.greet("Hello MotherFuckers");
