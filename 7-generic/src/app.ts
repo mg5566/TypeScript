@@ -1,5 +1,5 @@
 // const names: string[] = [];
-const names: Array<string> = [];
+// const names: Array<string> = [];
 
 const promise: Promise<string> = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -49,3 +49,62 @@ const extractAndConvert = <T extends object, U extends keyof T>(
 
 // console.log(extractAndConvert({}, "name"));  // name 이라는 property key 가 존재하지 않기때문이지
 console.log(extractAndConvert({ name: "kang", age: 3 }, "age"));
+
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    if (this.data.indexOf(item) === -1) {
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItem() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Kang");
+textStorage.addItem("Mike");
+console.log(textStorage.getItem());
+textStorage.removeItem("Kang");
+console.log(textStorage.getItem());
+
+const numberStorage = new DataStorage<number>();
+
+// const objectStorage = new DataStorage<object>();
+// objectStorage.addItem({ name: "Kang" });
+// objectStorage.addItem({ name: "Mike" });
+// objectStorage.removeItem({ name: "Kang" });
+// console.log(objectStorage.getItem()); // [{name: "Kang"}]
+
+// objectStorage.removeItem({ name: "Mike" });
+// console.log(objectStorage.getItem()); // []
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+const createCourseGoal = (
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal => {
+  let courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  return courseGoal as CourseGoal;
+};
+
+const names: Readonly<string[]> = ["Kang", "Mike"];  // string[]
+names.push("Hacker");
+names.pop();
