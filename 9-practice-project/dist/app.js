@@ -20,10 +20,18 @@ class Project {
         this.status = status;
     }
 }
-class ProjectState {
+class State {
     constructor() {
-        this.projects = [];
         this.listeners = [];
+    }
+    addListener(listenerFn) {
+        this.listeners.push(listenerFn);
+    }
+}
+class ProjectState extends State {
+    constructor() {
+        super();
+        this.projects = [];
     }
     static getInstance() {
         if (this.instance) {
@@ -32,24 +40,14 @@ class ProjectState {
         this.instance = new ProjectState();
         return this.instance;
     }
-    addListener(listenerFn) {
-        this.listeners.push(listenerFn);
-    }
     addProject(title, description, numOfPeople) {
         const newProject = new Project(Math.random().toString(), title, description, numOfPeople, ProjectStatus.Active);
-        // const newProject = {
-        //   id: Math.random().toString(),
-        //   title,
-        //   description,
-        //   people: numOfPeople,
-        // };
         this.projects.push(newProject);
         for (const listenerFn of this.listeners) {
             listenerFn(this.projects.slice());
         }
     }
 }
-// const projectState = new ProjectState();
 const projectState = ProjectState.getInstance();
 const validate = (validatalbeInput) => {
     let isValid = true;
@@ -104,6 +102,29 @@ class Component {
         this.hostElement.insertAdjacentElement(insertAtBeginning ? "afterbegin" : "beforeend", this.element);
     }
 }
+// project item class
+class ProjectItem extends Component {
+    constructor(hostId, project) {
+        super("single-project", hostId, false, project.id);
+        this.project = project;
+        this.configure();
+        this.renderContent();
+    }
+    get persons() {
+        if (this.project.people === 1) {
+            return "1 person";
+        }
+        else {
+            return `${this.project.people} persons`;
+        }
+    }
+    configure() { }
+    renderContent() {
+        this.element.querySelector("h2").textContent = this.project.title;
+        this.element.querySelector("h3").textContent = this.persons + " assigned";
+        this.element.querySelector("p").textContent = this.project.description;
+    }
+}
 // project list class
 class ProjectList extends Component {
     constructor(type) {
@@ -135,9 +156,7 @@ class ProjectList extends Component {
         const listElement = document.getElementById(`${this.type}-projects-list`);
         listElement.innerHTML = "";
         for (const projectItem of this.assignedProjects) {
-            const listItem = document.createElement("li");
-            listItem.textContent = projectItem.title;
-            listElement.appendChild(listItem);
+            new ProjectItem(this.element.querySelector("ul").id, projectItem);
         }
     }
 }
