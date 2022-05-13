@@ -1,6 +1,4 @@
 const path = require("path");
-const WebpackDevServer = require("webpack-dev-server");
-const webpackConfig = require('./webpack.config.js');
 
 module.exports = {
   mode: "development",
@@ -19,6 +17,8 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+  ],
   resolve: {
     extensions: [".ts", ".js"],
   },
@@ -28,5 +28,6 @@ module.exports = {
     },
     compress: true,
     port: 9000,
+    hot: true,
   },
 };

@@ -12,8 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "@types/lodash": "^4.14.182",
+    "class-transformer": "^0.5.1",
     "lite-server": "^2.6.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "ts-loader": "^9.3.0",
