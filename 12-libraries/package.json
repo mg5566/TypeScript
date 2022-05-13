@@ -2,16 +2,18 @@
   "name": "12-libraries",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server"
+    "start": "webpack serve --open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lite-server": "^2.6.1"
+    "@types/lodash": "^4.14.182",
+    "lite-server": "^2.6.1",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "ts-loader": "^9.3.0",
