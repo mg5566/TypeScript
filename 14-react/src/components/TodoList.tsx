@@ -2,15 +2,17 @@ import React from "react";
 
 interface Props {
   items: { id: string; text: string }[];
+  onDeleteTodo: (id: string) => void;
 }
 
-const TodoList: React.VFC<Props> = ({ items }) => {
+const TodoList: React.FC<Props> = ({ items, onDeleteTodo }) => {
   return (
     <ul>
       {items.map((item) => {
         return (
           <li key={item.id}>
-            <p>{item.text}</p>
+            <span>{item.text}</span>
+            <button onClick={onDeleteTodo.bind(null, item.id)}>DELETE</button>
           </li>
         );
       })}
