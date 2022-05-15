@@ -4,7 +4,7 @@ interface Props {
   items: { id: string; text: string }[];
 }
 
-const TodoList: React.FC<Props> = ({ items }) => {
+const TodoList: React.VFC<Props> = ({ items }) => {
   return (
     <ul>
       {items.map((item) => {
