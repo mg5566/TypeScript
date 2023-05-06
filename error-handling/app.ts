@@ -1,6 +1,9 @@
 import { DateIsInTheFutureError, InvalidDateFormatError, parse } from "./parse_date";
 
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> 3a57e00744a7db21294e922cc3e7de0a1a3ed61c
 try {
   let date = parse('12345');
 
@@ -14,6 +17,7 @@ try {
     throw e;
   }
 }
+<<<<<<< HEAD
 */
 
 let result = parse('12345');
@@ -30,3 +34,5 @@ if (result instanceof Error) {
 } else {
   console.info('Date is', result.toISOString());
 }
+=======
+>>>>>>> 3a57e00744a7db21294e922cc3e7de0a1a3ed61c
