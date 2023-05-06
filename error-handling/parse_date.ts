@@ -15,17 +15,13 @@ function isValid(date: Date) {
         && !Number.isNaN(date.getTime())
 };
 
-/**
- * @throw {InvalidDateFormatError} 미친 사용자가 생일을 모름
- * @throw {DateIsInTheFutureError} 정신나간 타임로드
- */
-export function parse(birthday: string): Date {
+export function parse(birthday: string): Date | InvalidDateFormatError | DateIsInTheFutureError {
     const date = new Date(birthday)
     if (!isValid(date)) {
-        throw new InvalidDateFormatError();
+        return new InvalidDateFormatError();
     }
     if (date.getTime() > Date.now()) {
-        throw new DateIsInTheFutureError();
+        return new DateIsInTheFutureError();
     }
     return date
 }
